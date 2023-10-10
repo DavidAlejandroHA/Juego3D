@@ -44,7 +44,6 @@ public class MovimientoPersonaje : MonoBehaviour
             fisicas.AddForce(Vector3.up * 10, ForceMode.Impulse);
         }
 
-
     }
 
     private void OnCollisionEnter(Collision collision)
