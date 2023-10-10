@@ -50,7 +50,7 @@ public class MovimientoPersonaje : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "suelo")
-        { //
+        {
             estaEnSuelo = true;
         }
     }
