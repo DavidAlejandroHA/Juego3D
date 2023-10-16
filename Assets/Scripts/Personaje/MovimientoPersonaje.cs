@@ -54,12 +54,5 @@ public class MovimientoPersonaje : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.tag == "moneda")
-        {
-            Destroy(collider.gameObject);
-            //Debug.Log("A");
-        }
-    }
+    
 }
