@@ -7,6 +7,7 @@ public class CapsulaMoneda : MonoBehaviour
     public GameObject capsulaMoneda;
     //public ParticleSystem particulas;
     public Material materialMonedaUsada;
+    bool monedaRecogida = false;
     //GameObject capsula;
     // Start is called before the first frame update
     void Start()
@@ -33,10 +34,12 @@ public class CapsulaMoneda : MonoBehaviour
             //Destroy(collider.gameObject);
             //Debug.Log("A");
             //collider.gameObject.GetComponent<ParticleSystem>().Play();
-            if (GetComponent<MeshRenderer>().material != materialMonedaUsada)
+            if (!monedaRecogida)
             {
+                monedaRecogida = true;
                 GetComponent<MeshRenderer>().material = materialMonedaUsada;
-                GetComponent<ParticleSystem>().Play();
+                transform.GetChild(1).GetComponent<ParticleSystem>().Play()
+                    ;
             }
         }
     }
