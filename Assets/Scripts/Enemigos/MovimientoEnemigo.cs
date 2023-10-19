@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class MovimientoEnemigo : MonoBehaviour
 {
-    public float velocidad = 5f;
+    public float velocidad = 3f;
     public GameObject target;
+    public string plaveholdef; 
     // Start is called before the first frame update
     void Start()
     {
@@ -19,4 +20,6 @@ public class MovimientoEnemigo : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
         transform.LookAt(target.transform.position, Vector3.left);
     }
+
+
 }
