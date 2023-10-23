@@ -11,15 +11,21 @@ public class MovimientoPersonaje : MonoBehaviour
     bool quiereSaltar = false;
     bool pausado = false;
     float segundos = 0f;
-    string textoTiempo;
     public GameObject panelGanar;
     public GameObject panelPerder;
+    public static string monedasTextoAux;
     // Start is called before the first frame update
     void Start()
     {
         fisicas = GetComponent<Rigidbody>();
-        textoTiempo = TiempoJugadoTexto.objetoTexto.text;
+        //textoTiempo = TiempoJugadoTexto.objetoTexto.text;
         panelGanar.SetActive(false);
+        panelPerder.SetActive(false);
+
+        monedasTextoAux = MonedasTexto.objetoTexto.text;
+        MonedasTexto.objetoTexto.text = monedasTextoAux + CapsulaMoneda.monedas;
+
+        //https://discussions.unity.com/t/playing-audio-on-collision/161497/2
     }
 
     // Update is called once per frame
@@ -39,19 +45,23 @@ public class MovimientoPersonaje : MonoBehaviour
         if (!pausado)
         {
             segundos += Time.deltaTime;
-            TiempoJugadoTexto.objetoTexto.text = textoTiempo + segundos.ToString("f2") + " seg.";
+            TiempoJugadoTexto.objetoTexto.text = segundos.ToString("f2") + " seg.";
         }
 
-        if (MonedasCount.numMonedas == CapsulaMoneda.monedas)
+        if (MonedasCount.numMonedas == CapsulaMoneda.monedas && !pausado)
         {
             Pausar();
+            panelGanar.SetActive(true);
+            TextoGanar.objetoTexto.text = TextoGanar.objetoTexto.text + MonedasCount.numMonedas + " monedas del mapa en " + segundos.ToString("f2") + " segundos.";
         }
     }
 
     private void FixedUpdate()
     {
-        Vector3 nuevaVelocidad = new Vector3(movX * speed, fisicas.velocity.y, movZ * speed);
-        fisicas.velocity = nuevaVelocidad;
+        //Vector3 nuevaVelocidad = new Vector3(movX * speed, fisicas.velocity.y, movZ * speed);
+        //fisicas.velocity = nuevaVelocidad;
+        
+        fisicas.AddForce(movX * speed, 0, movZ * speed, ForceMode.Force);
 
         if (estaEnSuelo && quiereSaltar)
         {
@@ -59,7 +69,6 @@ public class MovimientoPersonaje : MonoBehaviour
             quiereSaltar = false;
             fisicas.AddForce(Vector3.up * 10, ForceMode.Impulse);
         }
-
     }
 
     private void OnCollisionEnter(Collision collision)
