@@ -32,7 +32,7 @@ public class ControladorCamara : MonoBehaviour
         //cubo.transform.position.z - (primeraPersona ? 0 : offsetZ));
 
 
-        // 
+        // https://www.youtube.com/watch?v=5Rq8A4H6Nzw
 
 
         transform.position = new Vector3(cubo.transform.position.x,
