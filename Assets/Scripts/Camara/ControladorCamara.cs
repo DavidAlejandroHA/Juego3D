@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ControladorCamara : MonoBehaviour
 {
-    //public GameObject cubo;
+    //public GameObject personajeGameObj;
     public Transform personaje;
     public float offsetZ, offsetY;
     float auxoffsetZ, auxoffsetY;
@@ -35,13 +35,13 @@ public class ControladorCamara : MonoBehaviour
         // https://www.youtube.com/watch?v=5Rq8A4H6Nzw
 
 
-        transform.position = new Vector3(cubo.transform.position.x,
-            cubo.transform.position.y - (primeraPersona ? 0 : offsetY),
-            cubo.transform.position.z - (primeraPersona ? 0 : offsetZ));
+        transform.position = new Vector3(personaje.transform.position.x,
+            personaje.transform.position.y - (primeraPersona ? 0 : offsetY),
+            personaje.transform.position.z - (primeraPersona ? 0 : offsetZ));
 
         // Si se está en primera persona se trabaja las rotaciones de la cámara
-        if (primeraPersona)
-        {
+        //if (primeraPersona)
+        //{
 
             // Recolección de los movimientos del ratón
             float inputX = Input.GetAxis("Mouse X") * sensibilidad;
@@ -49,18 +49,14 @@ public class ControladorCamara : MonoBehaviour
 
             // Rota la cámara al rededor del eje Y
             rotacionCamaraVertical -= inputY;
-            rotacionCamaraHorizontal -= inputX;
             rotacionCamaraVertical = Mathf.Clamp(rotacionCamaraVertical, -90f, 90f);
-            transform.localEulerAngles = (Vector3.right * rotacionCamaraVertical) + (Vector3.down * rotacionCamaraHorizontal);
+            transform.localEulerAngles = Vector3.right * rotacionCamaraVertical;// + (Vector3.down * rotacionCamaraHorizontal);
 
 
-            //rotacionCamaraVertical = 0f;
-            //rotacionCamaraHorizontal = 0f;
-            // Rota la cámara al rededor del eje X
-            personaje.Rotate(Vector3.right * inputX);
-        } else
-        {
-            
-        }
+        //rotacionCamaraVertical = 0f;
+        //rotacionCamaraHorizontal = 0f;
+        // Rota la cámara al rededor del eje X
+        //personaje.Rotate(Vector3.up * inputX);
+        //}
     }
 }
