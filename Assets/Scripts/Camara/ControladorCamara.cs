@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ControladorCamara : MonoBehaviour
 {
-    //public GameObject personajeGameObj;
-    public Transform personaje;
+    public GameObject personajeGameObj;
+    //public Transform personaje;
     public float offsetZ, offsetY;
     float auxoffsetZ, auxoffsetY;
     bool primeraPersona = false;
@@ -35,22 +35,22 @@ public class ControladorCamara : MonoBehaviour
         // https://www.youtube.com/watch?v=5Rq8A4H6Nzw
 
 
-        transform.position = new Vector3(personaje.transform.position.x,
-            personaje.transform.position.y - (primeraPersona ? 0 : offsetY),
-            personaje.transform.position.z - (primeraPersona ? 0 : offsetZ));
+        transform.position = new Vector3(personajeGameObj.transform.position.x,
+            personajeGameObj.transform.position.y - (primeraPersona ? 0 : offsetY),
+            personajeGameObj.transform.position.z - (primeraPersona ? 0 : offsetZ));
 
         // Si se está en primera persona se trabaja las rotaciones de la cámara
         //if (primeraPersona)
         //{
 
             // Recolección de los movimientos del ratón
-            float inputX = Input.GetAxis("Mouse X") * sensibilidad;
-            float inputY = Input.GetAxis("Mouse Y") * sensibilidad;
+            //float inputX = Input.GetAxis("Mouse X") * sensibilidad;
+            //float inputY = Input.GetAxis("Mouse Y") * sensibilidad;
 
             // Rota la cámara al rededor del eje Y
-            rotacionCamaraVertical -= inputY;
-            rotacionCamaraVertical = Mathf.Clamp(rotacionCamaraVertical, -90f, 90f);
-            transform.localEulerAngles = Vector3.right * rotacionCamaraVertical;// + (Vector3.down * rotacionCamaraHorizontal);
+            //rotacionCamaraVertical -= inputY;
+            //rotacionCamaraVertical = Mathf.Clamp(rotacionCamaraVertical, -90f, 90f);
+            //transform.localEulerAngles = Vector3.right * rotacionCamaraVertical;// + (Vector3.down * rotacionCamaraHorizontal);
 
 
         //rotacionCamaraVertical = 0f;
