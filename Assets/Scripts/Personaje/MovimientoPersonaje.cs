@@ -51,8 +51,8 @@ public class MovimientoPersonaje : MonoBehaviour
         if (MonedasCount.numMonedas == CapsulaMoneda.monedas && !pausado)
         {
             Pausar();
-            panelGanar.SetActive(true);
             TextoGanar.objetoTexto.text = TextoGanar.objetoTexto.text + MonedasCount.numMonedas + " monedas del mapa en " + segundos.ToString("f2") + " segundos.";
+            panelGanar.SetActive(true);
         }
     }
 

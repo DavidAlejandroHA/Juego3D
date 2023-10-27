@@ -12,6 +12,7 @@ public class ControladorCamara : MonoBehaviour
     float sensibilidad = 2f;
     float rotacionCamaraVertical = 0f;
     float rotacionCamaraHorizontal = 0f;
+    bool resetCamara = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class ControladorCamara : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             primeraPersona = !primeraPersona;
+            resetCamara = true;
         }
 
         //transform.position = new Vector3(cubo.transform.position.x,
@@ -39,18 +41,47 @@ public class ControladorCamara : MonoBehaviour
             personajeGameObj.transform.position.y - (primeraPersona ? 0 : offsetY),
             personajeGameObj.transform.position.z - (primeraPersona ? 0 : offsetZ));
 
+
+        // Recolección de los movimientos del ratón
+        float inputX = Input.GetAxis("Mouse X") * sensibilidad;
+        float inputY = Input.GetAxis("Mouse Y") * sensibilidad;
+
         // Si se está en primera persona se trabaja las rotaciones de la cámara
+        if (primeraPersona)
+        {
+            // Rota la cámara al rededor del eje Y
+            rotacionCamaraVertical -= inputY;
+            rotacionCamaraHorizontal -= inputX;
+            rotacionCamaraVertical = Mathf.Clamp(rotacionCamaraVertical, -90f, 90f);
+            transform.localEulerAngles = new Vector3(rotacionCamaraVertical, -rotacionCamaraHorizontal, 0.0f);
+        } else
+        {
+            if (resetCamara)
+            {
+                resetCamara = !resetCamara;
+                transform.localEulerAngles = Vector3.right * 0 + Vector3.down * 0;
+            }
+
+            //transform.RotateAround(personajeGameObj.transform.position,
+                                     //transform.up, rotacionCamaraHorizontal);
+
+            //transform.RotateAround(personajeGameObj.transform.position,
+                                     //transform.right, rotacionCamaraVertical);
+        }
+
+
+
         //if (primeraPersona)
         //{
 
-            // Recolección de los movimientos del ratón
-            //float inputX = Input.GetAxis("Mouse X") * sensibilidad;
-            //float inputY = Input.GetAxis("Mouse Y") * sensibilidad;
+        // Recolección de los movimientos del ratón
+        //float inputX = Input.GetAxis("Mouse X") * sensibilidad;
+        //float inputY = Input.GetAxis("Mouse Y") * sensibilidad;
 
-            // Rota la cámara al rededor del eje Y
-            //rotacionCamaraVertical -= inputY;
-            //rotacionCamaraVertical = Mathf.Clamp(rotacionCamaraVertical, -90f, 90f);
-            //transform.localEulerAngles = Vector3.right * rotacionCamaraVertical;// + (Vector3.down * rotacionCamaraHorizontal);
+        // Rota la cámara al rededor del eje Y
+        //rotacionCamaraVertical -= inputY;
+        //rotacionCamaraVertical = Mathf.Clamp(rotacionCamaraVertical, -90f, 90f);
+        //transform.localEulerAngles = Vector3.right * rotacionCamaraVertical;// + (Vector3.down * rotacionCamaraHorizontal);
 
 
         //rotacionCamaraVertical = 0f;
