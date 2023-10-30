@@ -10,6 +10,7 @@ public class MovimientoPersonaje : MonoBehaviour
     bool estaEnSuelo = false;
     bool quiereSaltar = false;
     bool pausado = false;
+    public static bool finalPartida = false;
     float segundos = 0f;
     public GameObject panelGanar;
     public GameObject panelPerder;
@@ -34,6 +35,7 @@ public class MovimientoPersonaje : MonoBehaviour
         movX = Input.GetAxis("Horizontal");
         movZ = Input.GetAxis("Vertical");
 
+        // Si está intentando saltar y está en el suelo se pone saltando
         if (Input.GetButton("Jump") /*Input.GetButtonDown*/)
         {
             if (estaEnSuelo)
@@ -42,15 +44,19 @@ public class MovimientoPersonaje : MonoBehaviour
             }
         }
 
+        // Si está pausado se para el tiempo
         if (!pausado)
         {
             segundos += Time.deltaTime;
             TiempoJugadoTexto.objetoTexto.text = segundos.ToString("f2") + " seg.";
         }
 
+
+        // Si se recogen todas las monedas se gana la partida
         if (MonedasCount.numMonedas == CapsulaMoneda.monedas && !pausado)
         {
             Pausar();
+            finalPartida = true;
             TextoGanar.objetoTexto.text = TextoGanar.objetoTexto.text + MonedasCount.numMonedas + " monedas del mapa en " + segundos.ToString("f2") + " segundos.";
             panelGanar.SetActive(true);
         }
@@ -61,8 +67,11 @@ public class MovimientoPersonaje : MonoBehaviour
         //Vector3 nuevaVelocidad = new Vector3(movX * speed, fisicas.velocity.y, movZ * speed);
         //fisicas.velocity = nuevaVelocidad;
         
+        // Se añaden constantemente las físicas respecto a los movimientos del teclado
         fisicas.AddForce(movX * speed, 0, movZ * speed, ForceMode.Force);
 
+
+        // Y se hace saltar al personaje si se cumplen las condiciones
         if (estaEnSuelo && quiereSaltar)
         {
             estaEnSuelo = false;
@@ -73,6 +82,7 @@ public class MovimientoPersonaje : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //
         if (collision.gameObject.tag == "suelo")
         {
             estaEnSuelo = true;
@@ -82,9 +92,21 @@ public class MovimientoPersonaje : MonoBehaviour
             //TextoGanar.objetoTexto.text = TextoGanar.objetoTexto.text + segundos + " segundos.";
             panelPerder.SetActive(true);
         }
+        else
+        {
+
+        }
     }
 
-    void Pausar()
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "suelo")
+        {
+            estaEnSuelo = false;
+        }
+    }
+
+        void Pausar()
     {
         pausado = true;
         Time.timeScale = 0f;
