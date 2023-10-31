@@ -19,41 +19,43 @@ public class MenuPausaResumen : MonoBehaviour
     {
         
         // Si se usa la tecla Esc
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !MovimientoPersonaje.finalPartida)
         {
             if (pausado)
             {
-                panelMenu.transform.localScale = escalaUno;
-                //LeanTween.cancel(panelMenu); // Interrumpe la animación en caso de que se estuviera reproduciendo
                 resumir(); // Se resume el juego
-                LeanTween.scale(panelMenu, panelMenu.transform.localScale - new Vector3(1f, 1f, 1f), 0.5f).setEaseInBounce().setIgnoreTimeScale(true);
-                // La animación de ocultar el menú se reproduce
             }
             else
             {
-                panelMenu.transform.localScale = escalaCero;
-                //LeanTween.cancel(panelMenu); // Interrumpe la animación en caso de que se estuviera reproduciendo
                 pausar(); // Se pausa el juego
-                LeanTween.scale(panelMenu, panelMenu.transform.localScale + new Vector3(1f, 1f, 1f), 0.5f).setEaseOutBounce().setIgnoreTimeScale(true);
-                // La animación de mostrar el menú se reproduce
             }
         }
     }
 
     // Pausar la escala de tiempo
-    void pausar()
+    public void pausar()
     {
+        panelMenu.transform.localScale = escalaCero;
+        //LeanTween.cancel(panelMenu); // Interrumpe la animación en caso de que se estuviera reproduciendo
         Time.timeScale = 0f;
         pausado = true;
+        LeanTween.scale(panelMenu, panelMenu.transform.localScale + new Vector3(1f, 1f, 1f), 0.5f).setEaseOutBounce().setIgnoreTimeScale(true);
+        // La animación de mostrar el menú se reproduce
+
     }
 
     // Retomar la escala de tiempo
-    void resumir()
+    public void resumir()
     {
-        if (!MovimientoPersonaje.finalPartida)
+        if (pausado)
         {
+            panelMenu.transform.localScale = escalaUno;
+            //LeanTween.cancel(panelMenu); // Interrumpe la animación en caso de que se estuviera reproduciendo
+            //if (!MovimientoPersonaje.finalPartida)
             Time.timeScale = 1f;
             pausado = false;
+            LeanTween.scale(panelMenu, panelMenu.transform.localScale - new Vector3(1f, 1f, 1f), 0.5f).setEaseInBounce().setIgnoreTimeScale(true);
+            // La animación de ocultar el menú se reproduce
         }
     }
 }

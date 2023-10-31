@@ -10,7 +10,7 @@ public class Animation : MonoBehaviour
     {
         //boton = GameObject.Find("Button");
         //LeanTween.move(boton, new Vector3(3, 1, 0), 2.5f);
-        LeanTween.move(boton, boton.transform.position + new Vector3(300, 1, 0), 2.5f).setEaseOutBounce();
+        //LeanTween.move(boton, boton.transform.position + new Vector3(300, 1, 0), 2.5f).setEaseOutBounce();
         //LeanTween.scale(boton, Vector3.zero, 2.5f).setEaseInElastic().setRepeat(2)//.setLoopPingPong(2);
     }
 

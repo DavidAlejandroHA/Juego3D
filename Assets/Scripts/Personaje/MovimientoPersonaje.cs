@@ -89,6 +89,7 @@ public class MovimientoPersonaje : MonoBehaviour
         } else if (collision.gameObject.tag == "enemigo")
         {
             Pausar();
+            finalPartida = true;
             //TextoGanar.objetoTexto.text = TextoGanar.objetoTexto.text + segundos + " segundos.";
             panelPerder.SetActive(true);
         }
