@@ -1,23 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MovimientoPersonaje : MonoBehaviour
 {
     public float movX, movZ;
+    public GameObject flechaIzquierdaMenu;
+    public GameObject flechaDerechaMenu;
+    public GameObject flechaArribaMenu;
+    public GameObject flechaAbajoMenu;
     Rigidbody fisicas;
     public float speed = 10f;
     bool estaEnSuelo = false;
     bool quiereSaltar = false;
-    bool pausado = false;
+    public static bool pausado = false;
     public static bool finalPartida = false;
     float segundos = 0f;
     public GameObject panelGanar;
     public GameObject panelPerder;
     public static string monedasTextoAux;
+
+    Color blanco = new Color(255, 255, 255);
+    Color rojo = new Color(255, 0, 0);
+
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         fisicas = GetComponent<Rigidbody>();
         //textoTiempo = TiempoJugadoTexto.objetoTexto.text;
         panelGanar.SetActive(false);
@@ -34,6 +43,14 @@ public class MovimientoPersonaje : MonoBehaviour
     {
         movX = Input.GetAxis("Horizontal");
         movZ = Input.GetAxis("Vertical");
+
+        if (!pausado && !finalPartida)
+        {
+            cambioColorFlechas(flechaIzquierdaMenu, KeyCode.A);
+            cambioColorFlechas(flechaDerechaMenu, KeyCode.D);
+            cambioColorFlechas(flechaArribaMenu, KeyCode.W);
+            cambioColorFlechas(flechaAbajoMenu, KeyCode.S);
+        }
 
         // Si está intentando saltar y está en el suelo se pone saltando
         if (Input.GetButton("Jump") /*Input.GetButtonDown*/)
@@ -59,6 +76,18 @@ public class MovimientoPersonaje : MonoBehaviour
             finalPartida = true;
             TextoGanar.objetoTexto.text = TextoGanar.objetoTexto.text + MonedasCount.numMonedas + " monedas del mapa en " + segundos.ToString("f2") + " segundos.";
             panelGanar.SetActive(true);
+        }
+    }
+
+    void cambioColorFlechas(GameObject flecha, KeyCode tecla)
+    {
+        if (Input.GetKey(tecla))
+        {
+            flecha.GetComponent<RawImage>().color = rojo;
+        }
+        else
+        {
+            flecha.GetComponent<RawImage>().color = blanco;
         }
     }
 

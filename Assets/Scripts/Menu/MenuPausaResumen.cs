@@ -38,6 +38,7 @@ public class MenuPausaResumen : MonoBehaviour
         panelMenu.transform.localScale = escalaCero;
         //LeanTween.cancel(panelMenu); // Interrumpe la animación en caso de que se estuviera reproduciendo
         Time.timeScale = 0f;
+        MovimientoPersonaje.pausado = true;
         pausado = true;
         LeanTween.scale(panelMenu, panelMenu.transform.localScale + new Vector3(1f, 1f, 1f), 0.5f).setEaseOutBounce().setIgnoreTimeScale(true);
         // La animación de mostrar el menú se reproduce
@@ -53,6 +54,7 @@ public class MenuPausaResumen : MonoBehaviour
             //LeanTween.cancel(panelMenu); // Interrumpe la animación en caso de que se estuviera reproduciendo
             //if (!MovimientoPersonaje.finalPartida)
             Time.timeScale = 1f;
+            MovimientoPersonaje.pausado = false;
             pausado = false;
             LeanTween.scale(panelMenu, panelMenu.transform.localScale - new Vector3(1f, 1f, 1f), 0.5f).setEaseInBounce().setIgnoreTimeScale(true);
             // La animación de ocultar el menú se reproduce

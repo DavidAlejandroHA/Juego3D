@@ -25,16 +25,9 @@ public class Plataforma : MonoBehaviour
         {
             consumir = true;
             GetComponent<MeshRenderer>().material = materialPlataformaUsada;
-            consumirPlataforma();
-            Destroy(this, segundos);
+            //consumirPlataforma();
+            LeanTween.scale(this.gameObject, new Vector3(0f, 0f, 0f), 0.5f).setEaseOutBounce().setDelay(segundos).setDestroyOnComplete(true);
+            //Destroy(this.gameObject, segundos);
         }
-    }
-
-    void consumirPlataforma()
-    {
-        if (segundos >= 0)
-        {
-            segundos -= Time.deltaTime;
-        } 
     }
 }
