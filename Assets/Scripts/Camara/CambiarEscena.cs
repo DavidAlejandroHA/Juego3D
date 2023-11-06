@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.SceneManagement;
 
-public class TextoGanar : MonoBehaviour
+public class CambiarEscena : MonoBehaviour
 {
-    public static TextMeshProUGUI objetoTexto;
+    public string nombreEscena;
     // Start is called before the first frame update
     void Start()
     {
-        
-        objetoTexto = GetComponent<TextMeshProUGUI>();
-        Debug.Log(objetoTexto.text);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void cambiarEscena()
+    {
+        SceneManager.LoadScene(nombreEscena);
     }
 }

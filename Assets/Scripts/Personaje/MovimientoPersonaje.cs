@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MovimientoPersonaje : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class MovimientoPersonaje : MonoBehaviour
     public GameObject panelGanar;
     public GameObject panelPerder;
     public static string monedasTextoAux;
+    TextMeshProUGUI textoGanar;
 
     Color blanco = new Color(255, 255, 255);
     Color rojo = new Color(255, 0, 0);
@@ -29,8 +31,10 @@ public class MovimientoPersonaje : MonoBehaviour
     { 
         fisicas = GetComponent<Rigidbody>();
         //textoTiempo = TiempoJugadoTexto.objetoTexto.text;
-        panelGanar.SetActive(false);
-        panelPerder.SetActive(false);
+        textoGanar = TextoGanar.objetoTexto;
+        Debug.Log(textoGanar);
+       panelGanar.SetActive(false);
+       panelPerder.SetActive(false);
 
         monedasTextoAux = MonedasTexto.objetoTexto.text;
         MonedasTexto.objetoTexto.text = monedasTextoAux + CapsulaMoneda.monedas;
@@ -74,7 +78,10 @@ public class MovimientoPersonaje : MonoBehaviour
         {
             Pausar();
             finalPartida = true;
-            TextoGanar.objetoTexto.text = TextoGanar.objetoTexto.text + MonedasCount.numMonedas + " monedas del mapa en " + segundos.ToString("f2") + " segundos.";
+            //textoGanar = GameObject.Find("GanarTexto (TMP)").GetComponent<TextMeshProUGUI>();
+            TextoGanar.objetoTexto.text = TextoGanar.objetoTexto.text
+                + MonedasCount.numMonedas + " monedas del mapa en " + segundos.ToString("f2") + " segundos.";
+            //textoGanar.text = TextoGanar.objetoTexto.text + MonedasCount.numMonedas + " monedas del mapa en " + segundos.ToString("f2") + " segundos.";
             panelGanar.SetActive(true);
         }
     }
