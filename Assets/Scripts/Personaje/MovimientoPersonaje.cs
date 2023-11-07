@@ -21,20 +21,25 @@ public class MovimientoPersonaje : MonoBehaviour
     public GameObject panelGanar;
     public GameObject panelPerder;
     public static string monedasTextoAux;
-    TextMeshProUGUI textoGanar;
+    //public TextMeshProUGUI textoGanar;
 
     Color blanco = new Color(255, 255, 255);
     Color rojo = new Color(255, 0, 0);
+
+    Vector3 escalaCero = new Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 escalaUno = new Vector3(1.0f, 1.0f, 1.0f);
 
     // Start is called before the first frame update
     void Start()
     { 
         fisicas = GetComponent<Rigidbody>();
-        //textoTiempo = TiempoJugadoTexto.objetoTexto.text;
-        textoGanar = TextoGanar.objetoTexto;
-        Debug.Log(textoGanar);
-       panelGanar.SetActive(false);
-       panelPerder.SetActive(false);
+        panelGanar.transform.localScale = escalaCero;
+        panelPerder.transform.localScale = escalaCero;
+
+        // Esto daba problemas ya que al estar desactivados los paneles luego habían elementos que daban NullReferenceException
+        //panelGanar.SetActive(false);
+        //panelPerder.SetActive(false);
+        //Al final les cambié la escala a 0 desde el inicio (visualmente es lo mismo)
 
         monedasTextoAux = MonedasTexto.objetoTexto.text;
         MonedasTexto.objetoTexto.text = monedasTextoAux + CapsulaMoneda.monedas;
@@ -50,6 +55,7 @@ public class MovimientoPersonaje : MonoBehaviour
 
         if (!pausado && !finalPartida)
         {
+            // Se comprueba constantemente las teclas pulsadas para cambiar el color de las flechas según qué teclas estén pulsadas
             cambioColorFlechas(flechaIzquierdaMenu, KeyCode.A);
             cambioColorFlechas(flechaDerechaMenu, KeyCode.D);
             cambioColorFlechas(flechaArribaMenu, KeyCode.W);
@@ -78,11 +84,10 @@ public class MovimientoPersonaje : MonoBehaviour
         {
             Pausar();
             finalPartida = true;
-            //textoGanar = GameObject.Find("GanarTexto (TMP)").GetComponent<TextMeshProUGUI>();
             TextoGanar.objetoTexto.text = TextoGanar.objetoTexto.text
-                + MonedasCount.numMonedas + " monedas del mapa en " + segundos.ToString("f2") + " segundos.";
+               + MonedasCount.numMonedas + " monedas del mapa en " + segundos.ToString("f2") + " segundos.";
             //textoGanar.text = TextoGanar.objetoTexto.text + MonedasCount.numMonedas + " monedas del mapa en " + segundos.ToString("f2") + " segundos.";
-            panelGanar.SetActive(true);
+            panelGanar.transform.localScale = escalaUno;
         }
     }
 
@@ -118,16 +123,16 @@ public class MovimientoPersonaje : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //
+        // Si choca con el suelo el personaje podrá saltar
         if (collision.gameObject.tag == "suelo")
         {
             estaEnSuelo = true;
         } else if (collision.gameObject.tag == "enemigo")
         {
+            // Si choca con el enemigo el juego se termina
             Pausar();
             finalPartida = true;
-            //TextoGanar.objetoTexto.text = TextoGanar.objetoTexto.text + segundos + " segundos.";
-            panelPerder.SetActive(true);
+            panelPerder.transform.localScale = escalaUno;
         }
         else
         {
@@ -137,6 +142,7 @@ public class MovimientoPersonaje : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        // Al salir del suelo se detectan los cambios
         if (collision.gameObject.tag == "suelo")
         {
             estaEnSuelo = false;
@@ -145,6 +151,7 @@ public class MovimientoPersonaje : MonoBehaviour
 
         void Pausar()
     {
+        // Se pausa el tiempo y la partida
         pausado = true;
         Time.timeScale = 0f;
     }

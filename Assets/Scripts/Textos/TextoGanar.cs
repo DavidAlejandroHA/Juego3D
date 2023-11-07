@@ -11,7 +11,7 @@ public class TextoGanar : MonoBehaviour
     {
         
         objetoTexto = GetComponent<TextMeshProUGUI>();
-        Debug.Log(objetoTexto.text);
+        //Debug.Log(objetoTexto.text);
     }
 
     // Update is called once per frame

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db626ad063b13545924a9839ac5fa83, type: 3}
+  m_Name: Tablas Imagenes Banderas
+  m_EditorClassIdentifier: 
+  m_SharedTableData: {fileID: 11400000, guid: 314d363c48fa27647b7ab84e48eea58c, type: 2}
+  m_Tables:
+  - {fileID: 11400000, guid: 1e958d6b938ae2a49bd66e4cc38f52de, type: 2}
+  - {fileID: 11400000, guid: c178983b86874414f9b0c5eafd948e4f, type: 2}
+  - {fileID: 11400000, guid: a61908eb9acc7144da5947938e79c2ef, type: 2}
+  m_Extensions: []
+  m_Group: Asset Table
+  references:
+    version: 2
+    RefIds: []

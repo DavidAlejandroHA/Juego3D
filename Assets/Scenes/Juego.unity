@@ -602,12 +602,12 @@ GameObject:
   - component: {fileID: 201182992}
   - component: {fileID: 201182996}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Enemigo
   m_TagString: enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &201182992
 BoxCollider:
   m_ObjectHideFlags: 0

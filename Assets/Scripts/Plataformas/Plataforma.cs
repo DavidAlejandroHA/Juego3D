@@ -6,7 +6,6 @@ public class Plataforma : MonoBehaviour
 {
     public float segundos = 2f;
     public Material materialPlataformaUsada;
-    bool consumir = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +22,7 @@ public class Plataforma : MonoBehaviour
     {
         if (collision.gameObject.tag == "personaje")
         {
-            consumir = true;
             GetComponent<MeshRenderer>().material = materialPlataformaUsada;
-            //consumirPlataforma();
             LeanTween.scale(this.gameObject, new Vector3(0f, 0f, 0f), 0.5f).setEaseOutBounce().setDelay(segundos).setDestroyOnComplete(true);
             //Destroy(this.gameObject, segundos);
         }
