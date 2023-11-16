@@ -23,6 +23,8 @@ public class MovimientoPersonaje : MonoBehaviour
     public static string monedasTextoAux;
     //public TextMeshProUGUI textoGanar;
 
+    public float radioRaycast = 0.5f;
+
     Color blanco = new Color(255, 255, 255);
     Color rojo = new Color(255, 0, 0);
 
@@ -63,12 +65,28 @@ public class MovimientoPersonaje : MonoBehaviour
         }
 
         // Si está intentando saltar y está en el suelo se pone saltando
+        // Raycast salto
         if (Input.GetButton("Jump") /*Input.GetButtonDown*/)
         {
             if (estaEnSuelo)
             {
                 quiereSaltar = true;
             }
+        }
+
+        // Detectar cuando el personaje está en el suelo usando el RaycastHit
+        RaycastHit hit;
+        Vector3 origen = transform.position;
+        int mascara = 1 << 6;
+        // Raycast salto
+        if (Physics.Raycast(origen, Vector3.down, out hit, 0.5f, mascara)){
+            estaEnSuelo = true;
+            Debug.Log(estaEnSuelo);
+        }
+        else
+        {
+            estaEnSuelo = false;
+            Debug.Log(estaEnSuelo);
         }
 
         // Si está pausado se para el tiempo
@@ -124,10 +142,11 @@ public class MovimientoPersonaje : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Si choca con el suelo el personaje podrá saltar
-        if (collision.gameObject.tag == "suelo")
+        /*if (collision.gameObject.tag == "suelo")
         {
             estaEnSuelo = true;
-        } else if (collision.gameObject.tag == "enemigo")
+        } else */
+        if (collision.gameObject.tag == "enemigo")
         {
             // Si choca con el enemigo el juego se termina
             Pausar();
@@ -143,10 +162,10 @@ public class MovimientoPersonaje : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         // Al salir del suelo se detectan los cambios
-        if (collision.gameObject.tag == "suelo")
-        {
-            estaEnSuelo = false;
-        }
+        //if (collision.gameObject.tag == "suelo")
+        //{
+            //estaEnSuelo = false;
+        //}
     }
 
         void Pausar()
@@ -156,5 +175,11 @@ public class MovimientoPersonaje : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, new Vector3(0f, -radioRaycast, 0f));
+    }
+
+
 }
