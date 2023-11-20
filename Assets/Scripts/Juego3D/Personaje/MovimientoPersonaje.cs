@@ -79,7 +79,7 @@ public class MovimientoPersonaje : MonoBehaviour
         Vector3 origen = transform.position;
         int mascara = 1 << 6;
         // Raycast salto
-        if (Physics.Raycast(origen, Vector3.down, out hit, 0.5f, mascara)){
+        if (Physics.Raycast(origen, Vector3.down, out hit, 0.51f, mascara)){
             estaEnSuelo = true;
             Debug.Log(estaEnSuelo);
         }
