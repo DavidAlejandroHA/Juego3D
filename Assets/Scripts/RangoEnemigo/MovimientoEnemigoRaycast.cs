@@ -9,6 +9,7 @@ public class MovimientoEnemigoRaycast : MonoBehaviour
     public GameObject target;
     public string plaveholdef;
     bool seEncuentraConMuro = false;
+    float timer = 2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,15 +33,16 @@ public class MovimientoEnemigoRaycast : MonoBehaviour
             RaycastHit choqueParedes;
 
             if (Physics.Raycast(transform.position, transform.forward,
-                out choqueParedes, 0.75f))
+                out choqueParedes, 1f))
             {
                 if (choqueParedes.collider.gameObject != target)
                 {
+                    // opposite: hit.point + hit.normal * collider.size
                     seEncuentraConMuro = true;
                     //transform.RotateAround(transform.position, Vector3.right, 2f);
                     Debug.Log("a");
                     transform.Rotate(Vector3.right, 15);
-                    Invoke("ejemplo", 2f); // ejecuta una función con retraso, hacerlo para cambiar seEncuentraConMuro y rotar si hay un muro
+                    Invoke("cambiarSeEncuentraConMuro", 0.25f); // ejecuta una función con retraso, hacerlo para cambiar seEncuentraConMuro y rotar si hay un muro
 
                     //transform.RotateAround(transform.position, Vector3.forward, 45f);
                 }
@@ -53,7 +55,11 @@ public class MovimientoEnemigoRaycast : MonoBehaviour
             if (!seEncuentraConMuro)
             {
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-            transform.LookAt(target.transform.position, Vector3.left);
+                transform.LookAt(target.transform.position, Vector3.left);
+            } else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, transform.position +
+                    new Vector3(0f, 1f, 0f), step);
             }
             
             
@@ -66,9 +72,10 @@ public class MovimientoEnemigoRaycast : MonoBehaviour
         //listaChoques = Physics.RaycastAll
 
     }
-    void ejemplo()
+    void cambiarSeEncuentraConMuro()
     {
-        Debug.Log("Hola!");
+        seEncuentraConMuro = false;
+        //Debug.Log("Hola!");
     }
 
     private void OnDrawGizmos()
