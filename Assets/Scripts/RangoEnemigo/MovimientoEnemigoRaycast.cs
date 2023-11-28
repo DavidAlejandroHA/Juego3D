@@ -30,6 +30,8 @@ public class MovimientoEnemigoRaycast : MonoBehaviour
         {
             float step = velocidad * Time.deltaTime; // calcula la distancia a moverse
 
+
+            //EJ MOVETOWARDS v
             RaycastHit choqueParedes;
 
             if (Physics.Raycast(transform.position, transform.forward,
@@ -40,9 +42,9 @@ public class MovimientoEnemigoRaycast : MonoBehaviour
                     // opposite: hit.point + hit.normal * collider.size
                     seEncuentraConMuro = true;
                     //transform.RotateAround(transform.position, Vector3.right, 2f);
-                    Debug.Log("a");
-                    transform.Rotate(Vector3.right, 15);
-                    Invoke("cambiarSeEncuentraConMuro", 0.25f); // ejecuta una función con retraso, hacerlo para cambiar seEncuentraConMuro y rotar si hay un muro
+                    //Debug.Log("a");
+                    //transform.Rotate(Vector3.right, 15);
+                    Invoke("cambiarSeEncuentraConMuro", 0.25f); // ejecuta una función con retraso, hacerlo para cambiar seEncuentraConMuro
 
                     //transform.RotateAround(transform.position, Vector3.forward, 45f);
                 }
@@ -61,16 +63,7 @@ public class MovimientoEnemigoRaycast : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, transform.position +
                     new Vector3(0f, 1f, 0f), step);
             }
-            
-            
-
-            
         }
-
-        
-        //int mascaraParedes = 1 << 10;
-        //listaChoques = Physics.RaycastAll
-
     }
     void cambiarSeEncuentraConMuro()
     {
